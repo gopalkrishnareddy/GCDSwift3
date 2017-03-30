@@ -512,6 +512,7 @@
 				26B3CA981E88EFC600EBD76F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		26B3CA991E88EFC600EBD76F /* Build configuration list for PBXNativeTarget "GCD Swift3Tests" */ = {
 			isa = XCConfigurationList;
@@ -520,6 +521,7 @@
 				26B3CA9B1E88EFC600EBD76F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		26B3CA9C1E88EFC600EBD76F /* Build configuration list for PBXNativeTarget "GCD Swift3UITests" */ = {
 			isa = XCConfigurationList;
@@ -528,6 +530,7 @@
 				26B3CA9E1E88EFC600EBD76F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

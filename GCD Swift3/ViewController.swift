@@ -32,24 +32,20 @@ class ViewController: UIViewController {
         
         //simpleAsyncQueues()
        
-
-        
        //  queuesWithQoS()
         
-        
+     /*
          concurrentQueues()
          if let queue = inactiveQueue {
          queue.activate()
-            
-            
          }
+    */
         
+       //  queueWithDelay()
         
-        // queueWithDelay()
+       //  fetchImage()
         
-        // fetchImage()
-        
-        // useWorkItem()
+         useWorkItem()
     }
     
     
@@ -97,8 +93,6 @@ class ViewController: UIViewController {
 
          print("##### END Asynchronous Execution ##### ")
     }
-    
-    
     
     /*
      # Quality Of Service  Priority Table #
@@ -151,10 +145,7 @@ class ViewController: UIViewController {
         
     }
     
-    
-    
-    
-    //Concurrent Queues 
+    //Concurrent Queues :run at the same time
     var inactiveQueue: DispatchQueue!
     
     func concurrentQueues() {
@@ -196,20 +187,65 @@ class ViewController: UIViewController {
         
     }
     
-    //Delaying the Execution
+    //Delaying the Execution : the task of the dispatch queue will executed two seconds later
     func queueWithDelay() {
+    
+        let delayQueue = DispatchQueue(label: "com.yoelev.delayqueue", qos: .userInitiated)
+        
+        print(Date())
+        
+        let additionalTime: DispatchTimeInterval = .seconds(2)
+        
+        delayQueue.asyncAfter(deadline: .now() + additionalTime) {
+            //code to execute after x amount of time
+            print(Date())
+        }
         
         
         
     }
-    
+   
+    //Add the folowing (2) if you get Error (1)
+    // (1) App Transport Security has blocked a cleartext HTTP resource load since it is insecure. Temporary exceptions can be configured via your app's Info.plist file.
+    // (2) https://i.stack.imgur.com/LqXFE.png
     
     func fetchImage() {
-        
+       
+            let imageURL: URL = URL(string: "https://upload.wikimedia.org/wikipedia/commons/c/c5/Polarlicht_2_kmeans_16_large.png")!
+            
+            (URLSession(configuration: URLSessionConfiguration.default)).dataTask(with: imageURL, completionHandler: { (imageData, response, error) in
+                
+                if let data = imageData {
+                    print("Did download image data")
+                    
+                    DispatchQueue.main.async {
+                        self.imageView.image = UIImage(data: data)
+                    }
+                    
+                    
+                }
+            }).resume()
     }
     
     
     func useWorkItem() {
+        
+        var value = 10
+        
+        let workItem = DispatchWorkItem {
+            value += 5
+        }
+        
+        workItem.perform()
+        
+        let queue = DispatchQueue.global(qos: .utility)
+        
+        queue.async(execute: workItem)
+        
+        workItem.notify(queue: DispatchQueue.main) {
+            print("value = ", value)
+        }
+ 
         
     }
 
